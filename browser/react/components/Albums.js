@@ -15,7 +15,7 @@ const convertAlbum = album => {
 
 const fetchAlbum = (album, callback) => {
   
-  // @todo: loader? this feels meh
+  // Normally we'd employ a loader here
   callback(album);
   fetch(`/api/albums/${album.id}`)
     .then(res => res.json())
