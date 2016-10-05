@@ -49,7 +49,7 @@ export default class AppContainer extends Component {
   }
 
   onLoad (albums) {
-    this.setState({ albums });    
+    this.setState({ albums });
   }
 
   play () {
