@@ -14,7 +14,7 @@ export default ({ songs, currentSong, isPlaying, toggle }) => (
   </thead>
   <tbody>
     {
-      songs.map(song => (
+      songs && songs.map(song => (
         <tr key={song.id}>
           <td>
             <button className="btn btn-default btn-xs" onClick={() => toggle(song, songs)}>

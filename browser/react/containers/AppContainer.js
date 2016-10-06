@@ -6,12 +6,17 @@ import initialState from '../initialState';
 import AUDIO from '../audio';
 
 import Sidebar from '../components/Sidebar';
-import Albums from '../components/Albums';
 import Album from '../components/Album';
 import Player from '../components/Player';
 
+const convertSong = song => {
+  song.audioUrl = `/api/songs/${song.id}/audio`;
+  return song;
+};
+
 const convertAlbum = album => {
   album.imageUrl = `/api/albums/${album.id}/image`;
+  album.songs = album.songs.map(convertSong);
   return album;
 };
 
@@ -30,17 +35,16 @@ export default class AppContainer extends Component {
     super(props);
     this.state = initialState;
     
-    this.go = this.go.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.toggleOne = this.toggleOne.bind(this);
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
   }
 
   componentDidMount () {
-    fetch('/api/albums')
+    fetch('/api/albums/1')
       .then(res => res.json())
-      .then(albums => albums.map(convertAlbum))
-      .then(albums => this.onLoad(albums));
+      .then(album => this.onLoad(convertAlbum(album)));
     
     AUDIO.addEventListener('ended', () => 
       this.next());
@@ -48,8 +52,8 @@ export default class AppContainer extends Component {
       this.setProgress(AUDIO.currentTime / AUDIO.duration));
   }
 
-  onLoad (albums) {
-    this.setState({ albums });
+  onLoad (album) {
+    this.setState({ album });
   }
 
   play () {
@@ -68,14 +72,16 @@ export default class AppContainer extends Component {
     this.setState({ currentSong, currentSongList });
   }
 
-  go (selectedAlbum) {
-    this.setState({ selectedAlbum });
-  }
-
   startSong (song, list) {
     this.pause();
     this.load(song, list);
     this.play();
+  }
+
+  toggleOne (selectedSong, selectedSongList) {
+    if (selectedSong.id !== this.state.currentSong.id)
+      this.startSong(selectedSong, selectedSongList);
+    else this.toggle();
   }
 
   toggle () {
@@ -104,25 +110,15 @@ export default class AppContainer extends Component {
     return (
       <div id="main" className="container-fluid">
         <div className="col-xs-2">
-          <Sidebar go={() => this.go(initialState.selectedAlbum)} />
+          <Sidebar />
         </div>
         <div className="col-xs-10">
-          {
-            !!this.state.selectedAlbum.id ?
-            <Album 
-              album={this.state.selectedAlbum} 
-              currentSong={this.state.currentSong}
-              isPlaying={this.state.isPlaying}
-              toggle={
-                (selectedSong, selectedSongList) => {
-                  if (selectedSong.id !== this.state.currentSong.id)
-                    this.startSong(selectedSong, selectedSongList);
-                  else this.toggle();
-                }
-              }
-            /> :
-            <Albums albums={this.state.albums} go={this.go} />
-        }
+          <Album 
+            album={this.state.album} 
+            currentSong={this.state.currentSong}
+            isPlaying={this.state.isPlaying}
+            toggle={this.toggleOne}
+          />
         </div>
         <Player
           currentSong={this.state.currentSong}

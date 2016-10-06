@@ -2,12 +2,12 @@
 
 import React from 'react';
 
-export default ({ go }) => (
+export default () => (
   <sidebar>
     <img src="juke.svg" className="logo" />
     <section>
       <h4 className="menu-item active">
-        <a href="#" onClick={go}>ALBUMS</a>
+        <a href="#">ALBUMS</a>
       </h4>
     </section>
   </sidebar>
