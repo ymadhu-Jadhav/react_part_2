@@ -20,7 +20,7 @@ const convertAlbum = album => {
   return album;
 };
 
-const mod = (num, m) =>((num % m) + m) % m;
+const mod = (num, m) => ((num % m) + m) % m;
 
 const skip = (interval, { currentSongList, currentSong }) => {
   let idx = currentSongList.map(song => song.id).indexOf(currentSong.id);
@@ -53,7 +53,9 @@ export default class AppContainer extends Component {
   }
 
   onLoad (album) {
-    this.setState({ album });
+    this.setState({
+      album: album
+    });
   }
 
   play () {
@@ -69,7 +71,10 @@ export default class AppContainer extends Component {
   load (currentSong, currentSongList) {
     AUDIO.src = currentSong.audioUrl;
     AUDIO.load();
-    this.setState({ currentSong, currentSongList });
+    this.setState({
+      currentSong: currentSong, 
+      currentSongList: currentSongList
+    });
   }
 
   startSong (song, list) {
@@ -103,7 +108,7 @@ export default class AppContainer extends Component {
   }
 
   setProgress (progress) {
-    this.setState({ progress });
+    this.setState({ progress: progress });
   }
 
   render () {
