@@ -5,7 +5,7 @@ import Songs from '../components/Songs';
 
 const Album = function (props) {
 
-  const album = props.ablum; 
+  const album = props.album; 
   const currentSong = props.currentSong;
   const isPlaying = props.isPlaying;
   const toggle = props.toggle;
