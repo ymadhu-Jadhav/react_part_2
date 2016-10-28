@@ -11,7 +11,6 @@ const Player = function (props) {
   const prev = props.prev;
   const toggle = props.toggle;
   const next = props.next;
-  const scrub = props.scrub;
 
   return (
     <footer>
