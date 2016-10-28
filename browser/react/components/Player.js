@@ -28,7 +28,7 @@ const Player = function (props) {
           </button>
         </div>
         <div className="bar">
-          <div className="progress" onClick={evt => isPlaying ? scrub(evt) : null}>
+          <div className="progress">
             <div className="progress-bar" style={{width: `${progress * 100}%`}}></div>
           </div>
         </div>

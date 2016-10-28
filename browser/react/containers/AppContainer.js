@@ -9,32 +9,14 @@ import Sidebar from '../components/Sidebar';
 import Album from '../components/Album';
 import Player from '../components/Player';
 
-const convertSong = song => {
-  song.audioUrl = `/api/songs/${song.id}/audio`;
-  return song;
-};
-
-const convertAlbum = album => {
-  album.imageUrl = `/api/albums/${album.id}/image`;
-  album.songs = album.songs.map(convertSong);
-  return album;
-};
-
-const mod = (num, m) => ((num % m) + m) % m;
-
-const skip = (interval, { currentSongList, currentSong }) => {
-  let idx = currentSongList.map(song => song.id).indexOf(currentSong.id);
-  idx = mod(idx + interval, currentSongList.length);
-  const next = currentSongList[idx];
-  return [next, currentSongList];
-};
+import { convertSong, convertAlbum, skip } from '../utils';
 
 export default class AppContainer extends Component {
 
   constructor (props) {
     super(props);
     this.state = initialState;
-    
+
     this.toggle = this.toggle.bind(this);
     this.toggleOne = this.toggleOne.bind(this);
     this.next = this.next.bind(this);
@@ -45,7 +27,7 @@ export default class AppContainer extends Component {
     fetch('/api/albums/1')
       .then(res => res.json())
       .then(album => this.onLoad(convertAlbum(album)));
-    
+
     AUDIO.addEventListener('ended', () => 
       this.next());
     AUDIO.addEventListener('timeupdate', () => 
@@ -72,7 +54,7 @@ export default class AppContainer extends Component {
     AUDIO.src = currentSong.audioUrl;
     AUDIO.load();
     this.setState({
-      currentSong: currentSong, 
+      currentSong: currentSong,
       currentSongList: currentSongList
     });
   }
@@ -102,11 +84,6 @@ export default class AppContainer extends Component {
     this.startSong(...skip(-1, this.state));
   }
 
-  seek (decimal) {
-    AUDIO.currentTime = AUDIO.duration * decimal;
-    this.setProgress(AUDIO.currentTime / AUDIO.duration);
-  }
-
   setProgress (progress) {
     this.setState({ progress: progress });
   }
@@ -118,8 +95,8 @@ export default class AppContainer extends Component {
           <Sidebar />
         </div>
         <div className="col-xs-10">
-          <Album 
-            album={this.state.album} 
+          <Album
+            album={this.state.album}
             currentSong={this.state.currentSong}
             isPlaying={this.state.isPlaying}
             toggle={this.toggleOne}
@@ -133,7 +110,6 @@ export default class AppContainer extends Component {
           next={this.next}
           prev={this.prev}
           toggle={this.toggle}
-          scrub={evt => this.seek(evt.nativeEvent.offsetX / evt.target.clientWidth)} 
         />
       </div>
     );
