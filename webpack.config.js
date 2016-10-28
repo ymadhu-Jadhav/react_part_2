@@ -3,13 +3,13 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './browser/react/app.js',
+  entry: './browser/react/index.js',
   output: {
     path: __dirname,
     filename: './public/bundle.js'
   },
   context: __dirname,
-  devtool: 'source-map',  
+  devtool: 'source-map',
   module: {
     loaders: [
       {
