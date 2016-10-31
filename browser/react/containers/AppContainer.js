@@ -5,11 +5,12 @@ import React, { Component } from 'react';
 import initialState from '../initialState';
 import AUDIO from '../audio';
 
-import Sidebar from '../components/Sidebar';
+import Albums from '../components/Albums.js';
 import Album from '../components/Album';
+import Sidebar from '../components/Sidebar';
 import Player from '../components/Player';
 
-import { convertSong, convertAlbum, skip } from '../utils';
+import { convertAlbum, convertAlbums, skip } from '../utils';
 
 export default class AppContainer extends Component {
 
@@ -21,12 +22,13 @@ export default class AppContainer extends Component {
     this.toggleOne = this.toggleOne.bind(this);
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
+    this.selectAlbum = this.selectAlbum.bind(this);
   }
 
   componentDidMount () {
-    fetch('/api/albums/1')
+    fetch('/api/albums/')
       .then(res => res.json())
-      .then(album => this.onLoad(convertAlbum(album)));
+      .then(album => this.onLoad(convertAlbums(album)));
 
     AUDIO.addEventListener('ended', () => 
       this.next());
@@ -34,9 +36,9 @@ export default class AppContainer extends Component {
       this.setProgress(AUDIO.currentTime / AUDIO.duration));
   }
 
-  onLoad (album) {
+  onLoad (albums) {
     this.setState({
-      album: album
+      albums: albums
     });
   }
 
@@ -88,6 +90,14 @@ export default class AppContainer extends Component {
     this.setState({ progress: progress });
   }
 
+  selectAlbum (album) {
+    fetch(`/api/albums/${album.id}`)
+      .then(res => res.json())
+      .then(album => this.setState({
+        currentAlbum: convertAlbum(album)
+      }));
+  }
+
   render () {
     return (
       <div id="main" className="container-fluid">
@@ -95,12 +105,19 @@ export default class AppContainer extends Component {
           <Sidebar />
         </div>
         <div className="col-xs-10">
+        {
+          this.state.currentAlbum.id ?
           <Album
-            album={this.state.album}
+            album={this.state.currentAlbum}
             currentSong={this.state.currentSong}
             isPlaying={this.state.isPlaying}
             toggle={this.toggleOne}
+          /> :
+          <Albums
+            albums={this.state.albums}
+            selectAlbum={this.selectAlbum}
           />
+        }
         </div>
         <Player
           currentSong={this.state.currentSong}

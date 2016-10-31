@@ -11,6 +11,9 @@ export const convertAlbum = album => {
   return album;
 };
 
+export const convertAlbums = albums =>
+  albums.map(album => convertAlbum(album));
+
 const mod = (num, m) => ((num % m) + m) % m;
 
 export const skip = (interval, { currentSongList, currentSong }) => {
