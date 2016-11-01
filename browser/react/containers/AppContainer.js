@@ -91,8 +91,8 @@ export default class AppContainer extends Component {
     this.setState({ progress: progress });
   }
 
-  selectAlbum (album) {
-    fetch(`/api/albums/${album.id}`)
+  selectAlbum (albumId) {
+    fetch(`/api/albums/${albumId}`)
       .then(res => res.json())
       .then(album => this.setState({
         currentAlbum: convertAlbum(album)
