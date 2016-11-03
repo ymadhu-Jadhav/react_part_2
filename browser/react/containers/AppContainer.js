@@ -95,12 +95,12 @@ export default class AppContainer extends Component {
     fetch(`/api/albums/${albumId}`)
       .then(res => res.json())
       .then(album => this.setState({
-        currentAlbum: convertAlbum(album)
+        selectedAlbum: convertAlbum(album)
       }));
   }
 
   deselectAlbum () {
-    this.setState({ currentAlbum: {}});
+    this.setState({ selectedAlbum: {}});
   }
 
   render () {
@@ -111,9 +111,9 @@ export default class AppContainer extends Component {
         </div>
         <div className="col-xs-10">
         {
-          this.state.currentAlbum.id ?
+          this.state.selectedAlbum.id ?
           <Album
-            album={this.state.currentAlbum}
+            album={this.state.selectedAlbum}
             currentSong={this.state.currentSong}
             isPlaying={this.state.isPlaying}
             toggle={this.toggleOne}
