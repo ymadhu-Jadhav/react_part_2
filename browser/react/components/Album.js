@@ -8,7 +8,7 @@ const Album = function (props) {
   const album = props.album;
   const currentSong = props.currentSong;
   const isPlaying = props.isPlaying;
-  const toggle = props.toggle;
+  const toggleOne = props.toggleOne;
 
   return (
     <div className="album">
@@ -20,7 +20,7 @@ const Album = function (props) {
         songs={album.songs}
         currentSong={currentSong}
         isPlaying={isPlaying}
-        toggle={toggle} />
+        toggleOne={toggleOne} />
     </div>
   );
 }

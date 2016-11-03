@@ -7,7 +7,7 @@ const Songs = function (props) {
   const songs = props.songs;
   const currentSong = props.currentSong;
   const isPlaying = props.isPlaying;
-  const toggle = props.toggle;
+  const toggle = props.toggleOne;
 
   return (
     <table className='table'>
