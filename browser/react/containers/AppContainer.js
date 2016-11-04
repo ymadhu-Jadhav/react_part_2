@@ -1,6 +1,7 @@
 'use strict';
 
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import initialState from '../initialState';
 import AUDIO from '../audio';
@@ -27,8 +28,8 @@ export default class AppContainer extends Component {
   }
 
   componentDidMount () {
-    fetch('/api/albums/')
-      .then(res => res.json())
+    axios('/api/albums/')
+      .then(res => res.data)
       .then(album => this.onLoad(convertAlbums(album)));
 
     AUDIO.addEventListener('ended', () => 
@@ -92,8 +93,8 @@ export default class AppContainer extends Component {
   }
 
   selectAlbum (albumId) {
-    fetch(`/api/albums/${albumId}`)
-      .then(res => res.json())
+    axios(`/api/albums/${albumId}`)
+      .then(res => res.data)
       .then(album => this.setState({
         selectedAlbum: convertAlbum(album)
       }));
