@@ -1,8 +1,6 @@
-'use strict';
-
 import React from 'react';
 
-const Albums = function (props) {
+const Albums = (props) => {
 
   const albums = props.albums;
   const selectAlbum = props.selectAlbum;

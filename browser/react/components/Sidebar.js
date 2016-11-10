@@ -1,8 +1,6 @@
-'use strict';
-
 import React from 'react';
 
-const Sidebar = function (props) {
+const Sidebar = (props) => {
 
   const deselectAlbum = props.deselectAlbum;
 
