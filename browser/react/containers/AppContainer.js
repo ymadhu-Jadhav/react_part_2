@@ -26,13 +26,13 @@ export default class AppContainer extends Component {
   }
 
   componentDidMount () {
-    axios('/api/albums/')
+    axios.get('/api/albums/')
       .then(res => res.data)
       .then(album => this.onLoad(convertAlbums(album)));
 
-    AUDIO.addEventListener('ended', () => 
+    AUDIO.addEventListener('ended', () =>
       this.next());
-    AUDIO.addEventListener('timeupdate', () => 
+    AUDIO.addEventListener('timeupdate', () =>
       this.setProgress(AUDIO.currentTime / AUDIO.duration));
   }
 
@@ -91,7 +91,7 @@ export default class AppContainer extends Component {
   }
 
   selectAlbum (albumId) {
-    axios(`/api/albums/${albumId}`)
+    axios.get(`/api/albums/${albumId}`)
       .then(res => res.data)
       .then(album => this.setState({
         selectedAlbum: convertAlbum(album)
