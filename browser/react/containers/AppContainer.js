@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import AUDIO from '../audio';
 import Albums from '../components/Albums.js';
 import Album from '../components/Album';
 import Sidebar from '../components/Sidebar';

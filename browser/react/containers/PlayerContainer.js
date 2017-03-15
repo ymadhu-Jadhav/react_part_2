@@ -1,3 +1,16 @@
+/**
+ * ---------------------------------------
+ *  EVERYTHING BELOW IS OPTIONAL, AND NOT REQUIRED DURING THE WORKSHOP!
+ * ---------------------------------------
+ * This component contains all of the state/behavior needed to play music!
+ * To make the music come to life, all you need to do is pass down the appropriate props to the
+ * components that need them. This is an OPTIONAL exercise that can be done at any point in Juke.
+ *
+ * To start, we music first cause this component to render at the top of our application
+ * INSTEAD of our AppContainer. That way, our AppContainer will instead by rendered BY the
+ * PlayerContainer, allowing to have all of the song state/behavior passed down to it.
+ *
+ */
 import React, { Component } from 'react';
 import AUDIO from '../audio';
 import { skip } from '../utils';
@@ -75,9 +88,12 @@ export default class PlayerContainer extends Component {
     this.setState({ progress: progress });
   }
 
-
   render () {
-
+    /**
+     * Here, we pass all of the fields on `this.state`, and a few important methods
+     * down to AppContainer. Of course, AppContainer won't receive these props if we
+     * don't render PlayerContainer somewhere....
+     */
     return (
       <AppContainer
         {...this.state}
