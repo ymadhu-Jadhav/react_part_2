@@ -8,15 +8,16 @@
  *
  * To start, we music first cause this component to render at the top of our application
  * INSTEAD of our Main component. That way, our Main compponent will instead by rendered BY the
- * OptionalPlayerWrapper, allowing to have all of the song state/behavior passed down to it.
+ * Audio, allowing to have all of the song state/behavior passed down to it.
  *
  */
 import React, { Component } from 'react';
-import AUDIO from '../audio';
 import { skip } from '../utils';
 import Main from './Main';
 
-export default class OptionalPlayerWrapper extends Component {
+const AUDIO = document.createElement('audio');
+
+export default class Audio extends Component {
 
   constructor (props) {
     super(props);
@@ -92,7 +93,7 @@ export default class OptionalPlayerWrapper extends Component {
     /**
      * Here, we pass all of the fields on `this.state`, and a few important methods
      * down to Main. Of course, Main won't receive these props if we
-     * don't render OptionalPlayerWrapper somewhere....
+     * don't render Audio somewhere....
      */
     return (
       <Main
