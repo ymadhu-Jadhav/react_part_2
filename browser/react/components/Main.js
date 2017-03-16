@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Albums from '../components/Albums.js';
-import Album from '../components/Album';
-import Sidebar from '../components/Sidebar';
-import Player from '../components/Player';
+import Albums from './Albums';
+import Album from './Album';
+import Sidebar from './Sidebar';
+import Player from './Player';
 import { convertAlbum, convertAlbums } from '../utils';
 
 export default class Main extends Component {
