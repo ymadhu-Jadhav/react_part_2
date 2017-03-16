@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Songs from '../components/Songs';
 
-const Album = (props) => {
+export default class Album extends Component {
 
-  const album = props.album;
+  render () {
 
-  return (
-    <div className="album">
-      <div>
-        <h3>{ album.name }</h3>
-        <img src={ album.imageUrl } className="img-thumbnail" />
+    const album = this.props.album;
+
+    return (
+      <div className="album">
+        <div>
+          <h3>{ album.name }</h3>
+          <img src={ album.imageUrl } className="img-thumbnail" />
+        </div>
+        <Songs songs={album.songs} />
       </div>
-      <Songs songs={album.songs} />
-    </div>
-  );
+    );
+  }
 }
-
-export default Album;

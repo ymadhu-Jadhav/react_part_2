@@ -6,7 +6,7 @@ import Sidebar from '../components/Sidebar';
 import Player from '../components/Player';
 import { convertAlbum, convertAlbums } from '../utils';
 
-export default class AppContainer extends Component {
+export default class Main extends Component {
 
   constructor (props) {
     super(props);

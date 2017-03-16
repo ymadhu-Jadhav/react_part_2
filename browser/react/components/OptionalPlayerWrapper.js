@@ -7,16 +7,16 @@
  * components that need them. This is an OPTIONAL exercise that can be done at any point in Juke.
  *
  * To start, we music first cause this component to render at the top of our application
- * INSTEAD of our AppContainer. That way, our AppContainer will instead by rendered BY the
- * PlayerContainer, allowing to have all of the song state/behavior passed down to it.
+ * INSTEAD of our Main component. That way, our Main compponent will instead by rendered BY the
+ * OptionalPlayerWrapper, allowing to have all of the song state/behavior passed down to it.
  *
  */
 import React, { Component } from 'react';
 import AUDIO from '../audio';
 import { skip } from '../utils';
-import AppContainer from './AppContainer';
+import Main from './Main';
 
-export default class PlayerContainer extends Component {
+export default class OptionalPlayerWrapper extends Component {
 
   constructor (props) {
     super(props);
@@ -91,11 +91,11 @@ export default class PlayerContainer extends Component {
   render () {
     /**
      * Here, we pass all of the fields on `this.state`, and a few important methods
-     * down to AppContainer. Of course, AppContainer won't receive these props if we
-     * don't render PlayerContainer somewhere....
+     * down to Main. Of course, Main won't receive these props if we
+     * don't render OptionalPlayerWrapper somewhere....
      */
     return (
-      <AppContainer
+      <Main
         {...this.state}
         prev={this.prev}
         next={this.next}
