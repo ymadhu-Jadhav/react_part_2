@@ -6,16 +6,35 @@
  * To make the music come to life, all you need to do is pass down the appropriate props to the
  * components that need them. This is an OPTIONAL exercise that can be done at any point in Juke.
  *
- * To start, we music first cause this component to render at the top of our application
+ * To start, we must first cause this component to render at the top of our application
  * INSTEAD of our Main component. That way, our Main compponent will instead by rendered BY the
- * Audio, allowing to have all of the song state/behavior passed down to it.
+ * Audio component, allowing to have all of the song state/behavior passed down to it.
+ *
+ * This is known as `component composition` - it is the same principle as composing multiple
+ * functions together to create a new function!
  *
  */
 import React, { Component } from 'react';
-import { skip } from '../utils';
 import Main from './Main';
 
+// creates the Audio element
+// While the Audio element is part of HTML5, it doesn't `visually` show up anywhere in the DOM.
+// However, we interact with it the same way we would a DOM node. That's pretty cool!
+
 const AUDIO = document.createElement('audio');
+
+// Some utility functions
+
+const mod = (num, m) => ((num % m) + m) % m;
+
+const skip = (interval, { currentSongList, currentSong }) => {
+  let idx = currentSongList.map(song => song.id).indexOf(currentSong.id);
+  idx = mod(idx + interval, currentSongList.length);
+  const next = currentSongList[idx];
+  return [next, currentSongList];
+};
+
+// The stateful Audio component
 
 export default class Audio extends Component {
 

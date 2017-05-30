@@ -4,7 +4,6 @@ import Albums from './Albums';
 import Album from './Album';
 import Sidebar from './Sidebar';
 import Player from './Player';
-import { convertAlbum, convertAlbums } from '../utils';
 
 export default class Main extends Component {
 
@@ -22,7 +21,7 @@ export default class Main extends Component {
     axios.get('/api/albums/')
       .then(res => res.data)
       .then(albums => {
-        this.setState({ albums: convertAlbums(albums) })
+        this.setState({ albums })
       });
   }
 
@@ -30,7 +29,7 @@ export default class Main extends Component {
     axios.get(`/api/albums/${albumId}`)
       .then(res => res.data)
       .then(album => this.setState({
-        selectedAlbum: convertAlbum(album)
+        selectedAlbum: album
       }));
   }
 
