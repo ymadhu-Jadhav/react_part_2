@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Albums from './Albums';
-import Album from './Album';
+import AllAlbums from './AllAlbums';
+import SingleAlbum from './SingleAlbum';
 import Sidebar from './Sidebar';
 import Player from './Player';
 
@@ -46,8 +46,8 @@ export default class Main extends Component {
         <div className="col-xs-10">
         {
           this.state.selectedAlbum.id ?
-          <Album album={this.state.selectedAlbum} /> :
-          <Albums albums={this.state.albums} selectAlbum={this.selectAlbum} />
+          <SingleAlbum album={this.state.selectedAlbum} /> :
+          <AllAlbums albums={this.state.albums} selectAlbum={this.selectAlbum} />
         }
         </div>
         <Player />

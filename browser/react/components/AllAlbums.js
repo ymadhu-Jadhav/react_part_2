@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Albums extends Component {
+export default class AllAlbums extends Component {
 
   render () {
     const albums = this.props.albums;
